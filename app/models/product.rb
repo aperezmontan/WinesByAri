@@ -11,6 +11,5 @@ class Product
   field :type, type: String
   field :year, type: String
 
-  validates_presence_of :name, :url, :price_min, :price_max, :price_retail, :type, :year
-
+  validates_presence_of :name, :url, :price_min, :price_max, :price_retail, :type
 end
