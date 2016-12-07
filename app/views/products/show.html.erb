@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>External:</strong>
+  <%= @product.external_id %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @product.name %>
+</p>
+
+<p>
+  <strong>Url:</strong>
+  <%= @product.url %>
+</p>
+
+<p>
+  <strong>Price min:</strong>
+  <%= @product.price_min %>
+</p>
+
+<p>
+  <strong>Price max:</strong>
+  <%= @product.price_max %>
+</p>
+
+<p>
+  <strong>Price retail:</strong>
+  <%= @product.price_retail %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @product.type %>
+</p>
+
+<p>
+  <strong>Year:</strong>
+  <%= @product.year %>
+</p>
+
+<%= link_to 'Edit', edit_product_path(@product) %> |
+<%= link_to 'Back', products_path %>
