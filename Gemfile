@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'httpclient'
 gem 'mongoid'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
