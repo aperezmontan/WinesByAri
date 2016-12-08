@@ -5,7 +5,9 @@ require File.expand_path('../../config/environment', __FILE__)
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'spec_helper'
 require 'rspec/rails'
-# Add additional requires below this line. Rails is not loaded until this point!
+require 'webmock/rspec'
+
+WebMock.disable_net_connect!(allow_localhost: true)
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -57,5 +59,12 @@ RSpec.configure do |config|
 
   config.after(:each) do
     DatabaseCleaner.clean
+  end
+
+  # Stubs out requests made to Wine.com API
+  config.before(:each) do
+    stub_request(:get, "http://services.wine.com/api/beta2/service.svc/JSON/catalog?apikey=1234").
+      with(:headers => {'Accept'=>'*/*', 'User-Agent'=>'HTTPClient/1.0 (2.8.0, ruby 2.3.0 (2015-12-25))'}).
+      to_return(:status => 200, :body => "", :headers => {})
   end
 end
