@@ -33,6 +33,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
+  gem 'database_cleaner' # Cleans of db after running tests
   gem 'pry'
   gem 'rspec-rails'
 end
