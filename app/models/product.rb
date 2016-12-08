@@ -12,11 +12,12 @@ class Product
   field :type, type: String
   field :year, type: String
 
-  validates_presence_of :name, :url, :price_min, :price_max, :price_retail, :type, :year
+  validates_presence_of :name, :url, :price_min, :price_max, :price_retail, :type
 
   # VALID_ATTRIBUTES.freeze = ["Id", "Name", "Url", "Type", "Vintage", "Description", "PriceMax", "PriceMin", "PriceRetail"]
 
   def self.load_api_data(data)
+    binding.pry
     product_list = ::JSON.parse(data)["Products"]["List"]
 
     product_list.each do |product|
