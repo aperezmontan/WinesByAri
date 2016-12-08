@@ -6,7 +6,8 @@ describe ::Product do
   }
   context "api data" do
     it "parses the data and creates new Products" do
-      new_products = ::Product.load_api_data(product_api_data)
+      ::Product.load_api_data(product_api_data)
+      new_products = Product.all.to_a
 
       expect(new_products.count).to eq(1)
       expect(new_products.first.external_id).to eq(124)
