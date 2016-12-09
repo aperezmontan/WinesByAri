@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'httpclient'
 gem 'mongoid'
+gem 'mongoid-paranoia', '~> 2.0' # For deleting and restoring records
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5.1'
