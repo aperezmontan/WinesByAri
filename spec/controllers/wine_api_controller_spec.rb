@@ -1,8 +1,9 @@
 require 'rails_helper'
 
 describe WineApiController do
-  let(:uri) { URI('http://services.wine.com/api/beta2/service.svc/JSON/catalog') }
-  let(:query) { { :apikey => '1234' } }
+  before do
+    allow_any_instance_of(::WineApi::Client).to receive(:api_key).and_return('1234')
+  end
 
   describe "POST #request_data" do
     it 'makes request to Wine.com API' do
