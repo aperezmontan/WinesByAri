@@ -12,14 +12,13 @@ class Product
   field :price_retail, type: Float
   field :type, type: String
   field :year, type: String
-  field :user_modified, type: Boolean, default: false
 
   # VALIDATIONS
   validates_presence_of :name, :url, :price_min, :price_max, :price_retail, :type
   validates_numericality_of :price_min, :price_max, :price_retail
 
   # SCOPES
-  scope :user_modified, ->{ where(:user_modified => true) }
+  scope :user_added, ->{ where(:external_id => nil) }
 
   def self.load_api_data(data)
     product_list = ::JSON.parse(data)["Products"]["List"]
@@ -38,12 +37,7 @@ class Product
         end
       end
 
-      self.find_or_create_by(product) unless modified_by_user(product["external_id"])
+      self.find_or_create_by(product)
     end
-  end
-
-  def self.modified_by_user(external_id)
-    products = ::Product.user_modified.to_a + ::Product.deleted.user_modified.to_a
-    return products.map(&:external_id).include?(external_id)
   end
 end
