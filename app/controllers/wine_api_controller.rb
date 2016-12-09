@@ -4,12 +4,16 @@ class WineApiController < ApplicationController
 
   # POST /request_data
   def request_data
-    uri = URI(API_URI)
-    query = { :apikey=> '1234' }
-    @response = ::HTTPClient.get(uri, query)
+    @response = client.request({})
 
     ::Product.load_api_data(@response.body)
 
     render :nothing => true, :status => @response.status
+  end
+
+  private
+
+  def client
+    @client ||= ::WineApi::Client.new
   end
 end
