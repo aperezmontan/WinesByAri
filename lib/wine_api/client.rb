@@ -2,12 +2,10 @@ require "httpclient"
 
 module WineApi
   class Client
-    API_URI = 'http://services.wine.com/api/beta2/service.svc/JSON/catalog'.freeze
 
     def request(query)
-      # binding.pry
       query = { :apikey => api_key }
-      http_client.get(API_URI, query)
+      http_client.get(::WineApi::WinesByAri::API_URI, query)
     end
 
     private
