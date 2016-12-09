@@ -74,11 +74,13 @@ describe ::ProductsController do
         { :name => "REALLY Awesome Wine !!" }
       }
 
-      it "updates the requested product" do
+      it "updates the requested product and assigns user_modified attribute to true" do
         product = Product.create! valid_attributes
+        expect(product.user_modified).to eq(false)
         put :update, {id: product.to_param, product: new_attributes}
         product.reload
         expect(product.name).to eq(new_attributes[:name])
+        expect(product.user_modified).to eq(true)
       end
 
       it "assigns the requested product as @product" do
@@ -115,6 +117,8 @@ describe ::ProductsController do
       expect {
         delete :destroy, {id: product.to_param}
       }.to change(Product, :count).by(-1)
+      product.reload
+      expect(product.user_modified).to eq(true)
     end
 
     it "redirects to the products list" do
