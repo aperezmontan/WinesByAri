@@ -1,25 +1,6 @@
 require 'rails_helper'
 
 describe ::ProductsController do
-  let(:uri) { URI('http://services.wine.com/api/beta2/service.svc/JSON/catalog') }
-  let(:query) { { :apikey => '1234' } }
-
-  describe "GET #request_data" do
-    it 'makes request to Wine.com API' do
-      response = HTTPClient.get(uri, query )
-      get :request_data
-
-      expect(response).to be_an_instance_of(::HTTP::Message)
-    end
-
-    it 'loads the database with Products' do
-      expect(::Product.all.to_a.count).to eq(0)
-      get :request_data
-
-      expect(::Product.all.to_a.count).to_not eq(0)
-    end
-  end
-
   describe "GET #index" do
     it "assigns all products as @products" do
       product = Product.create! valid_attributes
