@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'httpclient'
 gem 'mongoid'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -32,15 +33,14 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # gem 'capistrano-rails', group: :development
 
 group :development, :test do
+  gem 'database_cleaner' # Cleans of db after running tests
   gem 'pry'
   gem 'rspec-rails'
+  gem 'webmock' # Mocks out HTTP requests
 end
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
-
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
 end
 
