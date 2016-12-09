@@ -6,13 +6,14 @@ class Product
   field :name, type: String
   field :url, type: String
   field :description, type: String
-  field :price_min, type: BigDecimal
-  field :price_max, type: BigDecimal
-  field :price_retail, type: BigDecimal
+  field :price_min, type: Float
+  field :price_max, type: Float
+  field :price_retail, type: Float
   field :type, type: String
   field :year, type: String
 
   validates_presence_of :name, :url, :price_min, :price_max, :price_retail, :type
+  validates_numericality_of :price_min, :price_max, :price_retail
 
   def self.load_api_data(data)
     product_list = ::JSON.parse(data)["Products"]["List"]
