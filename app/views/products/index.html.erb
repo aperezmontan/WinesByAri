@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Products</h1>
+<%= react_component('App', products: @products) %>
 
 <table>
   <thead>
@@ -17,23 +17,7 @@
     </tr>
   </thead>
 
-  <tbody>
-    <% @products.each do |product| %>
-      <tr>
-        <td><%= product.external_id %></td>
-        <td><%= product.name %></td>
-        <td><%= product.url %></td>
-        <td><%= product.price_min %></td>
-        <td><%= product.price_max %></td>
-        <td><%= product.price_retail %></td>
-        <td><%= product.type %></td>
-        <td><%= product.year %></td>
-        <td><%= link_to 'Show', product %></td>
-        <td><%= link_to 'Edit', edit_product_path(product) %></td>
-        <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
+
 </table>
 
 <br>
