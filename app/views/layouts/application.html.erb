@@ -10,46 +10,7 @@
 
 <h1><%= link_to "Wines by Ari", root_path %></h1>
 
-        <button data-disable-with="Please wait..." name="button" onclick="loadDataAjax();" type="submit">Load API Data !!</button>
-        <button data-disable-with="Please wait..." name="button" onclick="deleteDataAjax();" type="submit">Delete API Data</button>
-        <button data-disable-with="Please wait..." name="button" onclick="newProduct();" type="submit">New Product</button>
 <%= yield %>
 
-<script>
-  function loadDataAjax(){
-    var xhr = new XMLHttpRequest(),
-        method = "POST",
-        url = "/request_data";
-
-    xhr.open(method, url, true);
-    xhr.onreadystatechange = function () {
-            if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                console.log(xhr.responseText);
-            }
-        };
-    xhr.send();
-  }
-</script>
-<script>
-  function deleteDataAjax(){
-    var xhr = new XMLHttpRequest(),
-        method = "POST",
-        url = "/delete_data";
-
-    xhr.open(method, url, true);
-    xhr.onreadystatechange = function () {
-            if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                console.log(xhr.responseText);
-            }
-        };
-    xhr.send();
-  }
-</script>
-<script>
-  function newProduct(){
-    console.log("I'm being pressed")
-    window.location.href = "/products/new";
-  }
-</script>
 </body>
 </html>
