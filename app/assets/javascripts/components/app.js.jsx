@@ -1,3 +1,5 @@
+// import "bootstrap/min/"
+
 var App = React.createClass ({
   getInitialState: function(){
     return { search: '' };
@@ -23,17 +25,33 @@ var App = React.createClass ({
     // }
     return (
       <div>
-        <input type='text' onChange={this.updateSearch} value={this.state.search}/>
+        <h3>Products</h3>
 
-        <h1>Listing Products</h1>
+        <input className='form-control' type='text' onChange={this.updateSearch} value={this.state.search} placeholder='Search Products'/>
 
-        <ul>
-
-          {filteredProducts.map((product) => {
-            return <Product product={product} key={product.id}/>
-          })}
-        </ul>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th className="text-center">Price min</th>
+              <th className="text-center">Price max</th>
+              <th className="text-center">Price retail</th>
+              <th className="text-center">Type</th>
+              <th className="text-center">Varietal(Year)</th>
+              <th className="text-center">View</th>
+              <th className="text-center">Edit</th>
+              <th className="text-center">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredProducts.map((product) => {
+              return <Product product={product} key={product._id["$oid"]}/>
+            })}
+          </tbody>
+        </table>
       </div>
     );
   }
 })
+              // <th>Description</th>
+              // <th>Url</th>

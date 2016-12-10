@@ -8,9 +8,11 @@
 </head>
 <body>
 
-<%= link_to "Home", root_path %>
-<button data-disable-with="Please wait..." name="button" onclick="loadDataAjax();" type="submit">Load API Data !!</button>
-<button data-disable-with="Please wait..." name="button" onclick="deleteDataAjax();" type="submit">Delete API Data</button>
+<h1><%= link_to "Wines by Ari", root_path %></h1>
+
+        <button data-disable-with="Please wait..." name="button" onclick="loadDataAjax();" type="submit">Load API Data !!</button>
+        <button data-disable-with="Please wait..." name="button" onclick="deleteDataAjax();" type="submit">Delete API Data</button>
+        <button data-disable-with="Please wait..." name="button" onclick="newProduct();" type="submit">New Product</button>
 <%= yield %>
 
 <script>
@@ -43,6 +45,11 @@
     xhr.send();
   }
 </script>
-
+<script>
+  function newProduct(){
+    console.log("I'm being pressed")
+    window.location.href = "/products/new";
+  }
+</script>
 </body>
 </html>
