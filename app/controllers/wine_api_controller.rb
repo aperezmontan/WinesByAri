@@ -5,7 +5,7 @@ class WineApiController < ApplicationController
   def delete_data
     products = ::Product.not.user_added
     products.destroy_all
-    render :nothing => true, :status => 204
+    render :json => ::Product.all, :status => 200
   end
 
   # POST /request_data
@@ -15,7 +15,7 @@ class WineApiController < ApplicationController
 
     ::Product.load_api_data(@response.body)
 
-    render :nothing => true, :status => @response.status
+    render :json => ::Product.all, :status => 200
   end
 
   private
