@@ -2,10 +2,11 @@ var App = React.createClass ({
   getInitialState: function(){
     return {
       currentPage: 1,
-      defaultPaginationValue: 2,
+      defaultProductsPerPage: 2,
+      products: this.props.products,
       lastPage: Math.ceil(this.props.products.length/2),
       productCount: this.props.products.length,
-      productsPerPage: '',
+      productsPerPage: '2',
       search: '',
     };
   },
@@ -37,7 +38,7 @@ var App = React.createClass ({
   },
   nextPage: function(){
     if (this.state.currentPage == this.state.lastPage){
-      return nil
+      return null
     } else {
       this.setState({
         currentPage: this.state.currentPage + 1
@@ -48,9 +49,8 @@ var App = React.createClass ({
     window.location.href = "/products/new";
   },
   previousPage: function(){
-    console.log("Current Page", this.state.currentPage);
     if (this.state.currentPage == 1){
-      return nil
+      return null
     } else {
       this.setState({
         currentPage: this.state.currentPage - 1
@@ -71,55 +71,70 @@ var App = React.createClass ({
     }
   },
   updateSearch: function(e) {
+    if (!this.state.productsPerPage){
+      productsPerPage = this.state.defaultProductsPerPage;
+    } else {
+      productsPerPage = this.state.productsPerPage;
+    }
+    search = e.target.value;
+    this.setState({ currentPage: 1 })
     this.setState({ search: e.target.value });
-  },
-  render () {
     var filteredProducts = []
-    if (this.state.search.length > 1){
+    if (search.length > 1){
       filteredProducts = this.props.products.filter(
         (product) => {
           search_string = Object.values(product).filter((el) => { return el != null; }).join("")
-          return search_string.toLowerCase().indexOf(this.state.search.toLowerCase()) != -1;
+          return search_string.toLowerCase().indexOf(search.toLowerCase()) != -1;
         }
 
       );
     } else {
       filteredProducts = this.props.products;
     }
+    this.setState({ products: filteredProducts })
+    this.setState({ productCount: filteredProducts.length })
+    this.setState({ lastPage: Math.ceil(filteredProducts.length/productsPerPage) })
+  },
     // USE THIS TO IMPLEMENT BETTER SEARCH
     // else if ( this.state.search.indexOf(":") != -1){
     //   searchObjectString = '{' + this.state.search + '}'
     // }
+  render () {
 
     // PAGINATION
     if (!this.state.productsPerPage){
-      paginatedProducts =  filteredProducts.slice(2 * (this.state.currentPage - 1), 2 * this.state.currentPage)
+      paginatedProducts =  this.state.products.slice(2 * (this.state.currentPage - 1), 2 * this.state.currentPage)
     } else {
-    console.log("Calculating pagination");
-      paginatedProducts =  filteredProducts.slice(this.state.productsPerPage * (this.state.currentPage - 1), this.state.productsPerPage * this.state.currentPage)
+      paginatedProducts =  this.state.products.slice(this.state.productsPerPage * (this.state.currentPage - 1), this.state.productsPerPage * this.state.currentPage)
     }
 
+    var currentPage = this.state.currentPage;
+    var lastPage = this.state.lastPage;
+
     return (
-      <div>
-        <div className="apiDataButtons">
-          <button data-disable-with="Please wait..." name="button" onClick={this.loadDataAjax} type="submit">Load API Data !!</button>
-          <button data-disable-with="Please wait..." name="button" onClick={this.deleteDataAjax} type="submit">Delete API Data</button>
+      <div className="container">
+        <div className="apiDataButton">
+          <button className="btn btn-lg btn-success" data-disable-with="Please wait..." name="button" onClick={this.loadDataAjax} type="submit">Load API Data !!</button>
         </div>
-        <div>
-          <button data-disable-with="Please wait..." name="button" onClick={this.previousPage} type="submit">Previous</button>
-          <h4>Page {this.state.currentPage} of {this.state.lastPage}</h4>
-          <button data-disable-with="Please wait..." name="button" onClick={this.nextPage} type="submit">Next</button>
+        <div className="apiDataButton">
+          <button className="btn btn-lg btn-danger" data-disable-with="Please wait..." name="button" onClick={this.deleteDataAjax} type="submit">Delete API Data</button>
+        </div>
+
+        <div className="form-group form-inline">
+          <button className="form-control" data-disable-with="Please wait..." name="button" onClick={this.previousPage} type="submit">&#60;</button>
+          <h4 className="form-control-static"> Page {currentPage} of {lastPage} </h4>
+          <button className="form-control" data-disable-with="Please wait..." name="button" onClick={this.nextPage} type="submit">&#62;</button>
         </div>
 
         <h3>Products</h3>
 
         <button data-disable-with="Please wait..." name="button" onClick={this.newProduct} type="submit">New Product</button>
-        <div>
-          <label for="paginationControl">Products per page</label>
+
+        <div className="form-group form-inline searchInput paginationInput">
+          <label htmlFor="paginationControl">Products per page</label>
           <input className='form-control' type='text' id="paginationControl" onChange={this.updatePagination} value={this.state.productsPerPage} placeholder='2'/>
-        </div>
-        <div>
-          <input className='form-control' type='text' onChange={this.updateSearch} value={this.state.search} placeholder='Search Products'/>
+          <label htmlFor="search">Search</label>
+          <input className='form-control' type='text' id="search" onChange={this.updateSearch} value={this.state.search} placeholder='Malbec, Argentina, varietal: 2000...'/>
         </div>
 
         <table className="table">
