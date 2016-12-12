@@ -1,0 +1,48 @@
+<%= will_paginate @products %>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th class="text-center">Price min</th>
+      <th class="text-center">Price max</th>
+      <th class="text-center">Price retail</th>
+      <th class="text-center">Type</th>
+      <th class="text-center">Varietal(Year)</th>
+      <th class="text-center">View</th>
+      <th class="text-center">Edit</th>
+      <th class="text-center">Delete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @products.each do |product| %>
+      <tr data-toggle="collapse" class="accordion-toggle">
+        <td><%= product.name %></td>
+        <td class="text-center"><%= product.price_min %></td>
+        <td class="text-center"><%= product.price_max %></td>
+        <td class="text-center"><%= product.price_retail %></td>
+        <td class="text-center"><%= product.type %></td>
+        <td class="text-center"><%= product.year %></td>
+        <td class="text-center"><%= link_to 'Show', product %></td>
+        <td class="text-center"><%= link_to 'Edit', edit_product_path(product) %></td>
+        <td class="text-center"><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+      <tr>
+        <td class="hiddenRow">
+            <div class="accordian-body collapse">
+              URL: <%= product.url %>
+            </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="hiddenRow">
+            <div class="accordian-body collapse">
+              Description: <%= product.description.html_safe %>
+            </div>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= will_paginate @products %>

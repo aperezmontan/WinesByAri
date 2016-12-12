@@ -4,7 +4,8 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-    @products = Product.all
+    sleep 2
+    @products = Product.all.paginate(:page => params[:page], :per_page => 2)
   end
 
   # GET /products/1
