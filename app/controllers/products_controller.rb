@@ -14,7 +14,13 @@ class ProductsController < ApplicationController
 
   # GET /products/new
   def new
-    @product = Product.new
+    @product = ::Product.new
+
+    if request.xhr?
+      render :layout => false
+    else
+      @product
+    end
   end
 
   # GET /products/1/edit

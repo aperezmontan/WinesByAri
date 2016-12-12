@@ -9,10 +9,12 @@ var App = React.createClass ({
     return {
       currentPage: 1,
       defaultProductsPerPage: 2,
+      formParameters: { formType: '', isNeeded: false, product: '' },
       products: this.props.products,
       lastPage: lastPage,
       productCount: this.props.products.length,
       productsPerPage: '2',
+      progress: 0,
       search: '',
     };
   },
@@ -106,6 +108,8 @@ var App = React.createClass ({
       if (oEvent.lengthComputable) {
         var percentComplete = oEvent.loaded / oEvent.total;
         console.log(percentComplete);
+        console.log("Updating... ")
+        that.setState({progress: percentComplete})
         // ...
       } else {
         // Unable to compute progress information since the total size is unknown
@@ -121,7 +125,8 @@ var App = React.createClass ({
       console.log("The transfer has been canceled by the user.");
     }
   },
-  nextPage: function(){
+  nextPage: function(e){
+    e.preventDefault();
     if (this.state.currentPage == this.state.lastPage){
       return null
     } else {
@@ -133,7 +138,8 @@ var App = React.createClass ({
   newProduct: function(){
     window.location.href = "/products/new";
   },
-  previousPage: function(){
+  previousPage: function(e){
+    e.preventDefault();
     if (this.state.currentPage == 1){
       return null
     } else {
@@ -154,6 +160,7 @@ var App = React.createClass ({
     } else {
       this.setState({ lastPage: Math.ceil(this.state.productCount/e.target.value)})
     }
+    this.setState({ currentPage: 1 })
   },
   updateSearch: function(e) {
     if (!this.state.productsPerPage){
@@ -165,6 +172,8 @@ var App = React.createClass ({
     this.setState({ currentPage: 1 })
     this.setState({ search: e.target.value });
     var filteredProducts = []
+
+    // CODE TO FILTER PRODUCTS
     if (search.length > 1){
       filteredProducts = this.props.products.filter(
         (product) => {
@@ -176,6 +185,8 @@ var App = React.createClass ({
     } else {
       filteredProducts = this.props.products;
     }
+    /////////////////////////////////////
+
     this.setState({ products: filteredProducts })
     this.setState({ productCount: filteredProducts.length })
     this.setState({ lastPage: Math.ceil(filteredProducts.length/productsPerPage) })
@@ -185,7 +196,6 @@ var App = React.createClass ({
     //   searchObjectString = '{' + this.state.search + '}'
     // }
   render () {
-    // debugger
     // PAGINATION
     if (!this.state.productsPerPage){
       paginatedProducts =  this.state.products.slice(2 * (this.state.currentPage - 1), 2 * this.state.currentPage)
@@ -197,38 +207,61 @@ var App = React.createClass ({
     var lastPage = this.state.lastPage;
     var productCount = this.state.productCount;
 
+    var parameters = null;
+
     if (productCount == 1){
       productCountHeader = productCount + " Product";
     } else {
       productCountHeader = productCount + " Products";
     }
 
+    if (this.state.formParameters.isNeeded){
+      parameters = this.state.formParameters;
+    }
+
     return (
-      <div className="container">
-        <div className="apiDataButton">
-          <button className="btn btn-lg btn-success" data-disable-with="Please wait..." name="button" onClick={this.loadDataAjax} type="submit">Load API Data !!</button>
-        </div>
-        <div className="apiDataButton">
-          <button className="btn btn-lg btn-danger" data-disable-with="Please wait..." name="button" onClick={this.deleteDataAjax} type="submit">Delete API Data</button>
-        </div>
-        <div>
-          <button className="btn btn-lg btn-primary" data-disable-with="Please wait..." name="button" onClick={this.newProduct} type="submit">New Product</button>
-        </div>
-
-        <div className="form-group form-inline searchInput paginationInput">
-          <label htmlFor="paginationControl">Products per page</label>
-          <input className='form-control' type='text' id="paginationControl" onChange={this.updatePagination} value={this.state.productsPerPage} placeholder='2'/>
-          <label htmlFor="search">Search</label>
-          <input className='form-control' type='text' id="search" onChange={this.updateSearch} value={this.state.search} placeholder='Malbec, Argentina, varietal: 2000...'/>
+      <div>
+        <div className="row flex-items-xs-center flex-items-sm-center">
+          <div className="col-xs-12 col-sm-4">
+            <button className="btn btn-lg btn-success col-xs-12 col-sm-12" data-disable-with="Please wait..." name="button" onClick={this.loadDataAjax} type="submit">Load API Data !!</button>
+            </div>
+          <div className="col-xs-12 col-sm-4">
+            <button className="btn btn-lg btn-danger col-xs-12 col-sm-12" data-disable-with="Please wait..." name="button" onClick={this.deleteDataAjax} type="submit">Delete API Data</button>
+          </div>
+          <div className="col-xs-12 col-sm-4">
+            <button className="btn btn-lg btn-primary col-xs-12 col-sm-12" data-disable-with="Please wait..." name="button" onClick={this.newProduct} type="submit">New Product</button>
+          </div>
         </div>
 
-        <div className="form-group form-inline">
-          <button className="form-control" data-disable-with="Please wait..." name="button" onClick={this.previousPage} type="submit">&#60;</button>
-          <PaginationInfo currentPage={currentPage} lastPage={lastPage}/>
-          <button className="form-control" data-disable-with="Please wait..." name="button" onClick={this.nextPage} type="submit">&#62;</button>
+        <Form parameters={parameters}/>
+
+        <div className="row">
+          <div className="col-xs-12">
+            <nav aria-label="...">
+              <ul className="pager">
+                <li><a href="#" onClick={this.previousPage}>Previous</a></li>
+                <li><PaginationInfo currentPage={currentPage} lastPage={lastPage}/></li>
+                <li><a href="#" onClick={this.nextPage}>Next</a></li>
+              </ul>
+                <span className="text-center"><h3>{productCountHeader}</h3></span>
+            </nav>
+          </div>
         </div>
 
-        <h3>{productCountHeader}</h3>
+        <div className="row">
+          <div className="col-lg-9">
+            <div className="input-group">
+              <span className="input-group-addon" id="search-addon3">Search</span>
+              <input type="text" className="form-control" onChange={this.updateSearch} value={this.state.search} placeholder='Malbec, Argentina, varietal: 2000...'/>
+            </div>
+          </div>
+          <div className="col-lg-3">
+            <div className="input-group">
+              <input type="text" className="form-control" onChange={this.updatePagination} value={this.state.productsPerPage} placeholder='2'/>
+              <span className="input-group-addon" id="pagination-control-addon3">Products per page</span>
+            </div>
+          </div>
+        </div>
 
         <table className="table">
           <thead>
@@ -250,7 +283,17 @@ var App = React.createClass ({
             })}
           </tbody>
         </table>
+
+        <ProgressBar progress={this.state.progress}/>
       </div>
+    );
+  }
+})
+
+var Form = React.createClass({
+  render(){
+    return (
+      <div></div>
     );
   }
 })
@@ -258,7 +301,20 @@ var App = React.createClass ({
 var PaginationInfo = React.createClass({
   render(){
     return (
-      <h4 className="form-control-static"> Page {this.props.currentPage} of {this.props.lastPage} </h4>
+      <span> Page {this.props.currentPage} of {this.props.lastPage} </span>
+    );
+  }
+})
+
+var ProgressBar = React.createClass({
+  render(){
+      progress = (this.props.progress * 100) + '%'
+    return(
+      <div className="progress">
+        <div className="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow={progress} aria-valuemin="0" aria-valuemax="100">
+          {progress}
+        </div>
+      </div>
     );
   }
 })

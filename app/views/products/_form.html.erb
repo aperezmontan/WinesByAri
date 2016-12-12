@@ -11,39 +11,44 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :external_id %><br>
-    <%= f.number_field :external_id %>
-  </div>
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :name %><br>
     <%= f.text_field :name %>
   </div>
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :url %><br>
     <%= f.text_field :url %>
   </div>
-  <div class="field">
+  <div class="field form-group">
+    <%= f.label :description %><br>
+    <%= f.text_field :description %>
+  </div>
+  <div class="field form-group">
     <%= f.label :price_min %><br>
     <%= f.text_field :price_min %>
   </div>
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :price_max %><br>
     <%= f.text_field :price_max %>
   </div>
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :price_retail %><br>
     <%= f.text_field :price_retail %>
   </div>
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :type %><br>
     <%= f.text_field :type %>
   </div>
-  <div class="field">
+  <div class="field form-group">
     <%= f.label :year %><br>
     <%= f.text_field :year %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="field form-group">
+    <div class="actions btn btn-danger">
+      <%= f.submit %>
+    </div>
+    <div class="actions btn btn-primary">
+      <%= f.submit %>
+    </div>
   </div>
 <% end %>
