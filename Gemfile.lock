@@ -39,10 +39,6 @@ GEM
     addressable (2.5.0)
       public_suffix (~> 2.0, >= 2.0.2)
     arel (6.0.3)
-    babel-source (5.8.35)
-    babel-transpiler (0.7.0)
-      babel-source (>= 4.0, < 6)
-      execjs (~> 2.0)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     bson (4.2.0)
@@ -56,7 +52,6 @@ GEM
       execjs
     coffee-script-source (1.11.1)
     concurrent-ruby (1.0.2)
-    connection_pool (2.2.1)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     database_cleaner (1.5.3)
@@ -135,13 +130,6 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rake (12.0.0)
     rdoc (4.3.0)
-    react-rails (1.9.0)
-      babel-transpiler (>= 0.7.0)
-      coffee-script-source (~> 1.8)
-      connection_pool
-      execjs
-      railties (>= 3.2)
-      tilt
     rspec-core (3.5.2)
       rspec-support (~> 3.5.0)
     rspec-expectations (3.5.0)
@@ -215,7 +203,6 @@ DEPENDENCIES
   mongoid-paranoia (~> 2.0)
   pry
   rails (= 4.2.5.1)
-  react-rails
   rspec-rails
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
