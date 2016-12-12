@@ -22,7 +22,7 @@
         <li><PaginationInfo currentPage={currentPage} lastPage={lastPage}/></li>
         <li><a href="#" onClick={this.nextPage}>Next</a></li>
       </ul>
-        <span class="text-center"><h3>{productCountHeader}</h3></span>
+        <span class="text-center"><h3><%= @products.count %></h3></span>
     </nav>
   </div>
 </div>
@@ -31,12 +31,12 @@
   <div class="col-lg-9">
     <div class="input-group">
       <span class="input-group-addon" id="search-addon3">Search</span>
-      <input type="text" class="form-control" onChange={this.updateSearch} value={this.state.search} placeholder='Malbec, Argentina, varietal: 2000...'/>
+      <input type="text" class="form-control" onChange={this.updateSearch} placeholder='Malbec, Argentina, varietal: 2000...'/>
     </div>
   </div>
   <div class="col-lg-3">
     <div class="input-group">
-      <input type="text" class="form-control" onChange={this.updatePagination} value={this.state.productsPerPage} placeholder='2'/>
+      <input type="text" class="form-control" onChange={this.updatePagination} placeholder='2'/>
       <span class="input-group-addon" id="pagination-control-addon3">Products per page</span>
     </div>
   </div>

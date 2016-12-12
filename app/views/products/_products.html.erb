@@ -27,16 +27,16 @@
         <td class="text-center"><%= link_to 'Edit', edit_product_path(product) %></td>
         <td class="text-center"><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
-      <tr>
-        <td class="hiddenRow">
-            <div class="accordian-body collapse">
+      <tr className="hiddenRow">
+        <td colspan="9">
+            <div className="accordian-body collapse">
               URL: <%= product.url %>
             </div>
         </td>
       </tr>
-      <tr>
-        <td class="hiddenRow">
-            <div class="accordian-body collapse">
+      <tr className="hiddenRow">
+        <td colspan="9">
+            <div className="accordian-body collapse">
               Description: <%= product.description.html_safe %>
             </div>
         </td>

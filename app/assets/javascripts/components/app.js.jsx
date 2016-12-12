@@ -263,27 +263,6 @@ var App = React.createClass ({
           </div>
         </div>
 
-        <table className="table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th className="text-center">Price min</th>
-              <th className="text-center">Price max</th>
-              <th className="text-center">Price retail</th>
-              <th className="text-center">Type</th>
-              <th className="text-center">Varietal(Year)</th>
-              <th className="text-center">View</th>
-              <th className="text-center">Edit</th>
-              <th className="text-center">Delete</th>
-            </tr>
-          </thead>
-          <tbody>
-            {paginatedProducts.map((product) => {
-              return [<Product product={product} onClick={this.rowClick} key={product._id["$oid"]}/>, <ProductDescription product={product} key={product._id["$oid"] + 'd'}/>]
-            })}
-          </tbody>
-        </table>
-
         <ProgressBar progress={this.state.progress}/>
       </div>
     );
