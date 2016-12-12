@@ -4,7 +4,8 @@ source 'https://rubygems.org'
 gem 'httpclient'
 gem 'mongoid'
 gem 'mongoid-paranoia', '~> 2.0' # For deleting and restoring records
-gem 'react-rails'
+gem 'will_paginate', '> 3.0'
+gem 'will_paginate_mongoid'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5.1'

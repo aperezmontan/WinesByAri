@@ -1,5 +1,57 @@
 <p id="notice"><%= notice %></p>
 
-<%= react_component('App', products: @products) %>
+<div class="row flex-items-xs-center flex-items-sm-center">
+  <div class="col-xs-12 col-sm-4">
+    <button class="btn btn-lg btn-success col-xs-12 col-sm-12" data-disable-with="Please wait..." name="button" onClick={this.loadDataAjax} type="submit">Load API Data !!</button>
+    </div>
+  <div class="col-xs-12 col-sm-4">
+    <button class="btn btn-lg btn-danger col-xs-12 col-sm-12" data-disable-with="Please wait..." name="button" onClick={this.deleteDataAjax} type="submit">Delete API Data</button>
+  </div>
+  <div class="col-xs-12 col-sm-4">
+    <button class="btn btn-lg btn-primary col-xs-12 col-sm-12" data-disable-with="Please wait..." name="button" onClick={this.newProduct} type="submit">New Product</button>
+  </div>
+</div>
 
-</br>
+<div id="formDiv"></div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <nav aria-label="...">
+      <ul class="pager">
+        <li><a href="#" onClick={this.previousPage}>Previous</a></li>
+        <li><PaginationInfo currentPage={currentPage} lastPage={lastPage}/></li>
+        <li><a href="#" onClick={this.nextPage}>Next</a></li>
+      </ul>
+        <span class="text-center"><h3>{productCountHeader}</h3></span>
+    </nav>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-lg-9">
+    <div class="input-group">
+      <span class="input-group-addon" id="search-addon3">Search</span>
+      <input type="text" class="form-control" onChange={this.updateSearch} value={this.state.search} placeholder='Malbec, Argentina, varietal: 2000...'/>
+    </div>
+  </div>
+  <div class="col-lg-3">
+    <div class="input-group">
+      <input type="text" class="form-control" onChange={this.updatePagination} value={this.state.productsPerPage} placeholder='2'/>
+      <span class="input-group-addon" id="pagination-control-addon3">Products per page</span>
+    </div>
+  </div>
+</div>
+
+<div class="progress">
+  <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow={progress} aria-valuemin="0" aria-valuemax="100">
+    {progress}
+  </div>
+</div>
+
+<div id="products">
+  <%= render 'products' %>
+</div>
+
+<br>
+
+<%= link_to 'New Product', new_product_path %>
