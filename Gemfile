@@ -1,5 +1,11 @@
 source 'https://rubygems.org'
 
+# SEARCH
+gem 'sunspot_solr', :group => :development
+
+gem 'sunspot_rails'
+gem 'sunspot_mongoid'
+
 # PUBLIC GEMS
 gem 'httpclient'
 gem 'mongoid'
