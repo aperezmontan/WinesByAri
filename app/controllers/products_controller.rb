@@ -1,5 +1,6 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :check_for_cancel, :only => [:create, :update]
 
   # GET /products
   # GET /products.json
@@ -16,12 +17,6 @@ class ProductsController < ApplicationController
   # GET /products/new
   def new
     @product = ::Product.new
-
-    if request.xhr?
-      render :layout => false
-    else
-      @product
-    end
   end
 
   # GET /products/1/edit
@@ -31,6 +26,11 @@ class ProductsController < ApplicationController
   # POST /products
   # POST /products.json
   def create
+
+    if(params.key?("cancel"))
+      redirect_to root_path
+    end
+
     @product = Product.new(product_params)
 
     respond_to do |format|
@@ -70,13 +70,19 @@ class ProductsController < ApplicationController
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_product
-      @product = Product.find(params[:id])
+    def check_for_cancel
+      if(params.key?("cancel"))
+        redirect_to root_path
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
       params.require(:product).permit(:id, :name, :url, :price_min, :price_max, :price_retail, :type, :year, :description)
+    end
+
+    # Use callbacks to share common setup or constraints between actions.
+    def set_product
+      @product = Product.find(params[:id])
     end
 end

@@ -16,3 +16,15 @@
 //= require bootstrap.min.js
 //= require components
 //= require_tree .
+
+$(function(){
+  $(document).on("click", ".product-row", function(){
+    $(this).nextUntil(".product-row").slideToggle( "slow" );
+  });
+});
+
+$(function(){
+  $(document).on("click", "#loadDataAjax", function(e){
+    e.preventDefault();
+  });
+});

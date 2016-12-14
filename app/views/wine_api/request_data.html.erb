@@ -1,0 +1,9 @@
+<h3>How many products would you like to load ?</h3><br>
+
+<form action="/load_data" method="post">
+  <div class="form-group col-xs-2">
+    <input class="form-control col-xs-12" name="products[amount]" type="text" placeholder="500 is the default"/><br>
+  </div>
+  <%= button_tag "Cancel", :class => "btn btn-secondary", :type => 'cancel', :name => 'cancel' %>
+  <%= button_tag "Submit", :class => "btn btn-primary", :type => 'submit', :name => 'submit' %>
+</form>

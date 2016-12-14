@@ -33,5 +33,12 @@ module WinesByAri
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
     config.autoload_paths << Rails.root.join('lib')
+
+    # Change how errors are formatted to use Bootstrap
+    config.action_view.field_error_proc = Proc.new { |html_tag, instance|
+        "<div class=\"form-group has-error has-feedback\">#{html_tag}</div>".html_safe
+    }
+    # Get Bootstrap fonts to their own folder
+    config.assets.paths << "#{Rails}/vendor/assets/fonts"
   end
 end

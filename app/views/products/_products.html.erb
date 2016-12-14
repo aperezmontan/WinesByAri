@@ -9,36 +9,42 @@
       <th class="text-center">Price retail</th>
       <th class="text-center">Type</th>
       <th class="text-center">Varietal(Year)</th>
-      <th class="text-center">View</th>
       <th class="text-center">Edit</th>
       <th class="text-center">Delete</th>
     </tr>
   </thead>
   <tbody>
     <% @products.each do |product| %>
-      <tr data-toggle="collapse" class="accordion-toggle">
+      <tr class="product-row">
         <td><%= product.name %></td>
-        <td class="text-center"><%= product.price_min %></td>
-        <td class="text-center"><%= product.price_max %></td>
-        <td class="text-center"><%= product.price_retail %></td>
+        <td class="text-center">$<%= number_with_precision(product.price_min, :precision => 2) %></td>
+        <td class="text-center">$<%= number_with_precision(product.price_max, :precision => 2) %></td>
+        <td class="text-center">$<%= number_with_precision(product.price_retail, :precision => 2) %></td>
         <td class="text-center"><%= product.type %></td>
         <td class="text-center"><%= product.year %></td>
-        <td class="text-center"><%= link_to 'Show', product %></td>
-        <td class="text-center"><%= link_to 'Edit', edit_product_path(product) %></td>
-        <td class="text-center"><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-      <tr className="hiddenRow">
-        <td colspan="9">
-            <div className="accordian-body collapse">
-              URL: <%= product.url %>
-            </div>
+        <td class="text-center">
+          <%= link_to edit_product_path(product) do %>
+              <i class="glyphicon glyphicon-pencil"></i>
+          <% end %>
+        </td>
+        <td class="text-center">
+          <%= link_to product, :method => :delete, :data => { confirm: 'Are you sure?' } do %>
+              <i class="glyphicon glyphicon-remove"></i>
+          <% end %>
         </td>
       </tr>
-      <tr className="hiddenRow">
-        <td colspan="9">
-            <div className="accordian-body collapse">
-              Description: <%= product.description.html_safe %>
-            </div>
+      <tr style="display: none;">
+        <td colspan="0">
+          <div>
+            URL: <%= product.url %>
+          </div>
+        </td>
+      </tr>
+      <tr style="display: none;">
+        <td colspan="0">
+          <div>
+            Description: <%= product.description.html_safe %>
+          </div>
         </td>
       </tr>
     <% end %>

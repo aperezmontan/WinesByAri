@@ -2,30 +2,17 @@
 
 <div class="row flex-items-xs-center flex-items-sm-center">
   <div class="col-xs-12 col-sm-4">
-    <button class="btn btn-lg btn-success col-xs-12 col-sm-12" data-disable-with="Please wait..." name="button" onClick={this.loadDataAjax} type="submit">Load API Data !!</button>
+    <%= button_to 'Load API Data', request_data_path, :class => 'btn btn-lg btn-success col-xs-12 col-sm-12', :id => 'loadDataAjax', 'data-toggle' => "modal", 'data-target' => "#myModal", :method => "get" %>
     </div>
   <div class="col-xs-12 col-sm-4">
-    <button class="btn btn-lg btn-danger col-xs-12 col-sm-12" data-disable-with="Please wait..." name="button" onClick={this.deleteDataAjax} type="submit">Delete API Data</button>
+    <%= button_to 'Delete API Data', delete_data_path, :class => 'btn btn-lg btn-danger col-xs-12 col-sm-12', :id => 'deleteDataAjax', "data-confirm" => "Are you sure?", :method => "get" %>
   </div>
   <div class="col-xs-12 col-sm-4">
-    <button class="btn btn-lg btn-primary col-xs-12 col-sm-12" data-disable-with="Please wait..." name="button" onClick={this.newProduct} type="submit">New Product</button>
+    <%= button_to 'New Product', new_product_path, :class => 'btn btn-lg btn-primary col-xs-12 col-sm-12', :id => 'newProduct', :method => "get" %>
   </div>
 </div>
 
-<div id="formDiv"></div>
-
-<div class="row">
-  <div class="col-xs-12">
-    <nav aria-label="...">
-      <ul class="pager">
-        <li><a href="#" onClick={this.previousPage}>Previous</a></li>
-        <li><PaginationInfo currentPage={currentPage} lastPage={lastPage}/></li>
-        <li><a href="#" onClick={this.nextPage}>Next</a></li>
-      </ul>
-        <span class="text-center"><h3><%= @products.count %></h3></span>
-    </nav>
-  </div>
-</div>
+<div id="formDiv"></br></div>
 
 <div class="row">
   <div class="col-lg-9">
@@ -42,16 +29,31 @@
   </div>
 </div>
 
-<div class="progress">
-  <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow={progress} aria-valuemin="0" aria-valuemax="100">
-    {progress}
-  </div>
-</div>
-
 <div id="products">
   <%= render 'products' %>
 </div>
 
 <br>
 
-<%= link_to 'New Product', new_product_path %>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">How many products would you like to load?</h4>
+      </div>
+      <form action="/load_data" method="post">
+        <div class="modal-body">
+          <input type="text" name="products[amount]" placeholder="500 is the default"><br>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <input id="productCount" type="submit" class="btn btn-primary">
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
