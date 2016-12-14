@@ -5,8 +5,12 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-    sleep 2
-    @products = Product.all.paginate(:page => params[:page], :per_page => 2)
+    #     @search = ::Product.solr_search do
+    #   fulltext params[:search]
+    # end
+
+    # @products = @search.results.paginate(:page => params[:page], :per_page => 2)
+    @products = Product.all.paginate(:page => params[:page], :per_page => params[:per_page] || 2)
   end
 
   # GET /products/1
