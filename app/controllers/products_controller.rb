@@ -11,7 +11,7 @@ class ProductsController < ApplicationController
       @products = Product.all
     end
 
-    @products = @products.paginate(:page => params[:page], :per_page => params[:per_page] || 25)
+    @products.paginate(:page => params[:page], :per_page => params[:per_page] || 25)
   end
 
   # GET /products/1

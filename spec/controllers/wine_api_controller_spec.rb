@@ -5,15 +5,15 @@ describe WineApiController do
     allow_any_instance_of(::WineApi::Client).to receive(:api_key).and_return('1234')
   end
 
-  describe "POST #request_data" do
+  describe "POST #load_data" do
     it 'makes request to Wine.com API' do
-      post :request_data
+      post :load_data, { :products => { :amount => 1 } }
       expect(assigns(:response)).to be_an_instance_of(::HTTP::Message)
     end
 
     it 'loads the database with Products' do
       expect(::Product.all.to_a.count).to eq(0)
-      post :request_data
+      post :load_data, { :products => { :amount => 1 } }
       expect(::Product.all.to_a.count).to_not eq(0)
     end
   end
@@ -22,14 +22,14 @@ describe WineApiController do
     let(:valid_attributes) { {"name"=>"Ari's Wine", "url"=>"www.ariswine.com", "type"=>"Razz", "year"=>"1996", "description"=>"Awesome Wine !", "price_max"=>45, "price_min"=>35, "price_retail"=>40} }
 
     it 'deletes API loaded data from the database' do
-      post :request_data
+      post :load_data, { :products => { :amount => 1 } }
       expect(::Product.all.to_a.count).to_not eq(0)
       post :delete_data
       expect(::Product.all.to_a.count).to eq(0)
     end
 
     it "deletes only the data that the user has not created" do
-      post :request_data
+      post :load_data, { :products => { :amount => 1 } }
       ::Product.create(valid_attributes)
       expect(::Product.all.to_a.count).to eq(2)
       post :delete_data
@@ -37,13 +37,13 @@ describe WineApiController do
     end
 
     it "overwrites data that has been modified by the user" do
-      post :request_data
+      post :load_data, { :products => { :amount => 1 } }
       expect(::Product.all.to_a.count).to eq(1)
       product = ::Product.all.to_a.first
       product_old_name = product.name
       product.name = "Ari's Wine"
       product.reload
-      post :request_data
+      post :load_data, { :products => { :amount => 1 } }
       expect(::Product.all.to_a.count).to eq(1)
       product = ::Product.all.to_a.first
       expect(product.name).to_not eq("Ari's Wine")
@@ -51,13 +51,13 @@ describe WineApiController do
     end
 
     it "reloads data that has been deleted by the user" do
-      post :request_data
+      post :load_data, { :products => { :amount => 1 } }
       expect(::Product.all.to_a.count).to eq(1)
       old_product = ::Product.all.to_a.first
       old_product.destroy
       old_product.reload
       expect(::Product.all.to_a.count).to eq(0)
-      post :request_data
+      post :load_data, { :products => { :amount => 1 } }
       expect(::Product.all.to_a.count).to eq(1)
       product = ::Product.all.to_a.first
       expect(product.description).to eq(old_product.description)
