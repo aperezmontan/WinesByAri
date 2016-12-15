@@ -2,6 +2,7 @@ class Product
   include Mongoid::Document
   include Mongoid::Timestamps
   include Mongoid::Paranoia
+  include Mongoid::Search
 
   field :external_id, type: Integer
   field :name, type: String
@@ -19,6 +20,8 @@ class Product
 
   # SCOPES
   scope :user_added, ->{ where(:external_id => nil) }
+
+  search_in :external_id, :name, :url, :description, :price_min, :price_max, :price_retail, :type, :year
 
   def self.load_api_data(data)
     product_list = ::JSON.parse(data)["Products"]["List"]

@@ -1,6 +1,6 @@
 <%= form_for(@product) do |f| %>
   <% if @product.errors.any? %>
-    <div id="error_explanation">
+    <div class="alert alert-danger" role="alert">
       <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
 
       <ul>
@@ -11,39 +11,56 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :external_id %><br>
-    <%= f.number_field :external_id %>
+  <div class="form-group row">
+    <%= f.label :name, :class =>"col-xs-2 col-form-label" %><br>
+    <div class="col-xs-12">
+      <%= f.text_field :name, :class => "form-control" %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+  <div class="form-group row">
+    <%= f.label :url, :class =>"col-xs-2 col-form-label" %><br>
+    <div class="col-xs-12">
+      <%= f.text_field :url, :class => "form-control" %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :url %><br>
-    <%= f.text_field :url %>
+  <div class="form-group row">
+    <%= f.label :description, :class =>"col-xs-2 col-form-label" %><br>
+    <div class="col-xs-12">
+      <%= f.text_area :description, rows: 3, :class => "form-control" %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :price_min %><br>
-    <%= f.text_field :price_min %>
+  <div class="form-group row">
+    <%= f.label :price_min, :class =>"col-xs-2 col-form-label" %><br>
+    <div class="col-xs-12">
+      <%= f.text_field :price_min, :class => "form-control" %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :price_max %><br>
-    <%= f.text_field :price_max %>
+  <div class="form-group row">
+    <%= f.label :price_max, :class =>"col-xs-2 col-form-label" %><br>
+    <div class="col-xs-12">
+      <%= f.text_field :price_max, :class => "form-control" %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :price_retail %><br>
-    <%= f.text_field :price_retail %>
+  <div class="form-group row">
+    <%= f.label :price_retail, :class =>"col-xs-2 col-form-label" %><br>
+    <div class="col-xs-12">
+      <%= f.text_field :price_retail, :class => "form-control" %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :type %><br>
-    <%= f.text_field :type %>
+  <div class="form-group row">
+    <%= f.label :type, :class =>"col-xs-2 col-form-label" %><br>
+    <div class="col-xs-12">
+      <%= f.text_field :type, :class => "form-control" %>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :year %><br>
-    <%= f.text_field :year %>
+  <div class="form-group row">
+    <%= f.label :year, :class =>"col-xs-2 col-form-label" %><br>
+    <div class="col-xs-12">
+      <%= f.text_field :year, :class => "form-control" %>
+    </div>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-group row">
+    <%= button_tag "Cancel", :class => "btn btn-danger", :type => 'cancel', :name => 'cancel' %>
+    <%= button_tag "Submit", :class => "btn btn-primary", :type => 'submit', :name => 'submit' %>
   </div>
 <% end %>

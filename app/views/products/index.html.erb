@@ -1,6 +1,33 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Products</h1>
+<div class="row flex-items-xs-center flex-items-sm-center">
+  <div class="col-xs-12 col-sm-4">
+    <%= button_to 'Load API Data', request_data_path, :class => 'btn btn-lg btn-success col-xs-12 col-sm-12', :id => 'loadDataAjax', 'data-toggle' => "modal", 'data-target' => "#myModal", :method => "get" %>
+    </div>
+  <div class="col-xs-12 col-sm-4">
+    <%= button_to 'Delete API Data', delete_data_path, :class => 'btn btn-lg btn-danger col-xs-12 col-sm-12', :id => 'deleteDataAjax', "data-confirm" => "Are you sure?", :method => "get" %>
+  </div>
+  <div class="col-xs-12 col-sm-4">
+    <%= button_to 'New Product', new_product_path, :class => 'btn btn-lg btn-primary col-xs-12 col-sm-12', :id => 'newProduct', :method => "get" %>
+  </div>
+</div>
+
+<div id="formDiv"></br></div>
+
+<div class="row">
+  <div class="col-lg-9">
+    <div class="input-group">
+      <span class="input-group-addon" id="search-addon3">Search</span>
+      <input id="search" type="text" class="form-control" placeholder='Malbec, Argentina, 2000...'/>
+    </div>
+  </div>
+  <div class="col-lg-3">
+    <div class="input-group">
+      <input id="per-page" type="text" class="form-control" placeholder='25'/>
+      <span class="input-group-addon" id="pagination-control-addon3">Products per page</span>
+    </div>
+  </div>
+</div>
 
 <div id="products">
   <%= render 'products' %>
@@ -8,4 +35,25 @@
 
 <br>
 
-<%= link_to 'New Product', new_product_path %>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">How many products would you like to load?</h4>
+      </div>
+      <form action="/load_data" method="post">
+        <div class="modal-body">
+          <input type="text" name="products[amount]" placeholder="500 is the default"><br>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="product-count" data-loading-text="<i class='fa fa-spinner fa-spin fa-2x fa-fw'></i> Fetching Products">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

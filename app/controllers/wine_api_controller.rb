@@ -1,24 +1,55 @@
 class WineApiController < ApplicationController
   protect_from_forgery with: :null_session
+  before_action :check_for_cancel, :only => [:load_data]
 
-  # POST /delete_data
-  def delete_data
-    products = ::Product.not.user_added
-    products.destroy_all
-    render :nothing => true, :status => 204
+  #GET /data_request_options
+  def data_request_options
+    if request.xhr?
+      render :layout => false
+    end
   end
 
-  # POST /request_data
+  # GET /delete_data
+  def delete_data
+    sleep 2
+
+    products = ::Product.not.user_added
+    products.destroy_all
+    redirect_to root_path
+  end
+
+  # GET /request_data
   def request_data
+  end
+
+  # POST /load_data
+  def load_data
+    sleep 5
+
+    amount =  api_params["amount"].nil? || api_params["amount"].empty? ? 500 : api_params["amount"]
     ::Product.not.user_added.destroy_all
-    @response = client.request({})
+    @response = client.request({ :size => amount} )
 
     ::Product.load_api_data(@response.body)
 
-    render :nothing => true, :status => @response.status
+    if request.xhr?
+      render :layout => false, :status => 200
+    else
+      redirect_to root_path
+    end
   end
 
   private
+
+  def check_for_cancel
+    if(params.key?("cancel"))
+      redirect_to root_path
+    end
+  end
+
+  def api_params
+    params.require(:products).permit(:amount)
+  end
 
   def client
     @client ||= ::WineApi::Client.new

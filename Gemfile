@@ -1,8 +1,11 @@
 source 'https://rubygems.org'
 
+# PUBLIC GEMS
+gem "font-awesome-rails"
 gem 'httpclient'
 gem 'mongoid'
 gem 'mongoid-paranoia', '~> 2.0' # For deleting and restoring records
+gem 'mongoid_search', github: 'mauriciozaffari/mongoid_search', branch: 'master'
 gem 'will_paginate', '> 3.0'
 gem 'will_paginate_mongoid'
 

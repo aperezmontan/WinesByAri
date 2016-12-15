@@ -1,11 +1,17 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
+  before_action :check_for_cancel, :only => [:create, :update]
 
   # GET /products
   # GET /products.json
   def index
-    sleep 2
-    @products = Product.all.paginate(:page => params[:page], :per_page => 2)
+    if params[:search].present?
+      @products = Product.full_text_search(params[:search])
+    else
+      @products = Product.all
+    end
+
+    @products = @products.paginate(:page => params[:page], :per_page => params[:per_page] || 25)
   end
 
   # GET /products/1
@@ -15,7 +21,7 @@ class ProductsController < ApplicationController
 
   # GET /products/new
   def new
-    @product = Product.new
+    @product = ::Product.new
   end
 
   # GET /products/1/edit
@@ -25,6 +31,11 @@ class ProductsController < ApplicationController
   # POST /products
   # POST /products.json
   def create
+
+    if(params.key?("cancel"))
+      redirect_to root_path
+    end
+
     @product = Product.new(product_params)
 
     respond_to do |format|
@@ -64,13 +75,18 @@ class ProductsController < ApplicationController
 
   private
 
+    def check_for_cancel
+      if(params.key?("cancel"))
+        redirect_to root_path
+      end
+    end
+
+    def product_params
+      params.require(:product).permit(:id, :name, :url, :price_min, :price_max, :price_retail, :type, :year, :description)
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_product
       @product = Product.find(params[:id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def product_params
-      params.require(:product).permit(:id, :name, :url, :price_min, :price_max, :price_retail, :type, :year, :description)
     end
 end

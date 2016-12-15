@@ -1,3 +1,12 @@
+GIT
+  remote: git://github.com/mauriciozaffari/mongoid_search.git
+  revision: 77bf98e8be446e5e18fc4424a4efd1446df73bd0
+  branch: master
+  specs:
+    mongoid_search (0.3.3)
+      fast-stemmer (~> 1.0.0)
+      mongoid (>= 3.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -59,6 +68,9 @@ GEM
     diff-lcs (1.2.5)
     erubis (2.7.0)
     execjs (2.7.0)
+    fast-stemmer (1.0.2)
+    font-awesome-rails (4.7.0.1)
+      railties (>= 3.2, < 5.1)
     globalid (0.3.7)
       activesupport (>= 4.1.0)
     hashdiff (0.3.1)
@@ -196,11 +208,13 @@ PLATFORMS
 DEPENDENCIES
   coffee-rails (~> 4.1.0)
   database_cleaner
+  font-awesome-rails
   httpclient
   jbuilder (~> 2.0)
   jquery-rails
   mongoid
   mongoid-paranoia (~> 2.0)
+  mongoid_search!
   pry
   rails (= 4.2.5.1)
   rspec-rails

@@ -3,42 +3,50 @@
 <table class="table">
   <thead>
     <tr>
+      <th class="text-center"></th>
       <th>Name</th>
       <th class="text-center">Price min</th>
       <th class="text-center">Price max</th>
       <th class="text-center">Price retail</th>
       <th class="text-center">Type</th>
       <th class="text-center">Varietal(Year)</th>
-      <th class="text-center">View</th>
       <th class="text-center">Edit</th>
       <th class="text-center">Delete</th>
     </tr>
   </thead>
   <tbody>
     <% @products.each do |product| %>
-      <tr data-toggle="collapse" class="accordion-toggle">
+      <tr class="product-row" data-product-id="<%= product.id %>">
+        <td><i class="fa fa-plus" aria-hidden="true"></i></td>
         <td><%= product.name %></td>
-        <td class="text-center"><%= product.price_min %></td>
-        <td class="text-center"><%= product.price_max %></td>
-        <td class="text-center"><%= product.price_retail %></td>
+        <td class="text-center">$<%= number_with_precision(product.price_min, :precision => 2) %></td>
+        <td class="text-center">$<%= number_with_precision(product.price_max, :precision => 2) %></td>
+        <td class="text-center">$<%= number_with_precision(product.price_retail, :precision => 2) %></td>
         <td class="text-center"><%= product.type %></td>
         <td class="text-center"><%= product.year %></td>
-        <td class="text-center"><%= link_to 'Show', product %></td>
-        <td class="text-center"><%= link_to 'Edit', edit_product_path(product) %></td>
-        <td class="text-center"><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-      <tr>
-        <td class="hiddenRow">
-            <div class="accordian-body collapse">
-              URL: <%= product.url %>
-            </div>
+        <td class="text-center">
+          <%= link_to edit_product_path(product) do %>
+              <i class="glyphicon glyphicon-pencil"></i>
+          <% end %>
+        </td>
+        <td class="text-center">
+          <%= link_to product, :method => :delete, :data => { confirm: 'Are you sure?' } do %>
+              <i class="glyphicon glyphicon-remove"></i>
+          <% end %>
         </td>
       </tr>
-      <tr>
-        <td class="hiddenRow">
-            <div class="accordian-body collapse">
-              Description: <%= product.description.html_safe %>
-            </div>
+      <tr id="product-row-<%= product.id %>" class="product-row-details" style="display: none;">
+        <td colspan="20">
+          <div id="product-deets-url-<%= product.id %>" class="product-row-deets-slider">
+            <a onclick="window.open('<%= product.url %>', '_blank');"><%= product.url %></a>
+          </div>
+        </td>
+      </tr>
+      <tr id="product-row-<%= product.id %>" class="product-row-details" style="display: none;">
+        <td colspan="20">
+          <div id="product-deets-description-<%= product.id %>" class="product-row-deets-slider">
+            Description: <%= product.description.html_safe %>
+          </div>
         </td>
       </tr>
     <% end %>

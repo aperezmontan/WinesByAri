@@ -3,8 +3,9 @@ require "httpclient"
 module WineApi
   class Client
 
-    def request(query)
+    def request(amount)
       query = { :apikey => api_key }
+      query = query.merge(amount)
       http_client.get(::WineApi::WinesByAri::API_URI, query)
     end
 
