@@ -28,3 +28,10 @@ $(function(){
     e.preventDefault();
   });
 });
+
+$(function(){
+  $(document).on("click", "#product-count", function(e){
+    var $this = $(this);
+    $this.button('loading')
+  });
+});
