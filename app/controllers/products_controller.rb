@@ -5,12 +5,13 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-    #     @search = ::Product.solr_search do
-    #   fulltext params[:search]
-    # end
+    if params[:search].present?
+      @products = Product.full_text_search(params[:search])
+    else
+      @products = Product.all
+    end
 
-    # @products = @search.results.paginate(:page => params[:page], :per_page => 2)
-    @products = Product.all.paginate(:page => params[:page], :per_page => params[:per_page] || 2)
+    @products = @products.paginate(:page => params[:page], :per_page => params[:per_page] || 25)
   end
 
   # GET /products/1
@@ -80,7 +81,6 @@ class ProductsController < ApplicationController
       end
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
     def product_params
       params.require(:product).permit(:id, :name, :url, :price_min, :price_max, :price_retail, :type, :year, :description)
     end
