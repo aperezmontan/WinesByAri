@@ -33,6 +33,6 @@ $(function(){
 $(function(){
   $(document).on("click", "#product-count", function(){
     var $this = $(this);
-    $this.button('loading')
+    $this.button('loading');
   });
 });

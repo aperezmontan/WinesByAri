@@ -38,7 +38,7 @@
       <tr id="product-row-<%= product.id %>" class="product-row-details" style="display: none;">
         <td colspan="20">
           <div id="product-deets-url-<%= product.id %>" class="product-row-deets-slider">
-            URL: <%= link_to product.url %>
+            <a onclick="window.open('<%= product.url %>', '_blank');"><%= product.url %></a>
           </div>
         </td>
       </tr>
@@ -52,16 +52,5 @@
     <% end %>
   </tbody>
 </table>
-
-<tr class="library-item-header">
-    <td class="library-item-title" style="cursor: pointer;"> <a href="#" entry_id="123" class="toggle_dropdown">Click</a>
-
-    </td>
-</tr>
-<tr id="library-edit-dropdown-123" class="library-edit-dropdown" style="display: none;">
-    <td colspan="4">
-        <div class="library-dropdown-animation" id="library-edit-animation-123">TEST</div>
-    </td>
-</tr>
 
 <%= will_paginate @products %>
