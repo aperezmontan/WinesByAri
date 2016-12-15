@@ -10,6 +10,20 @@ describe ::ProductsController do
       get :index, {}
       expect(assigns(:products)).to eq([product])
     end
+
+    context "search" do
+      it "returns products matching the search" do
+        product = Product.create! valid_attributes
+        get :index, { :search => "Ari" }
+        expect(assigns(:products)).to eq([product])
+      end
+
+      it "does not return products not matching the search" do
+        product = Product.create! valid_attributes
+        get :index, { :search => "BOOM!" }
+        expect(assigns(:products)).to eq([])
+      end
+    end
   end
 
   describe "GET #show" do

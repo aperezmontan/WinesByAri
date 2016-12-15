@@ -11,10 +11,9 @@ class WineApiController < ApplicationController
 
   # GET /delete_data
   def delete_data
-    sleep 2
-
     products = ::Product.not.user_added
     products.destroy_all
+
     redirect_to root_path
   end
 
@@ -24,8 +23,6 @@ class WineApiController < ApplicationController
 
   # POST /load_data
   def load_data
-    sleep 5
-
     amount =  api_params["amount"].nil? || api_params["amount"].empty? ? 500 : api_params["amount"]
     ::Product.not.user_added.destroy_all
     @response = client.request({ :size => amount} )
