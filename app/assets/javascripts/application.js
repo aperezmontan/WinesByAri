@@ -14,12 +14,13 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap.min.js
-//= require components
 //= require_tree .
 
 $(function(){
-  $(document).on("click", ".product-row", function(){
+  $(document).on("click", ".product-row", function(e){
+    var $this = $(this);
     $(this).nextUntil(".product-row").slideToggle( "slow" );
+    ($this).find("i.fa").toggleClass( "fa-plus fa-minus" );
   });
 });
 
@@ -30,7 +31,7 @@ $(function(){
 });
 
 $(function(){
-  $(document).on("click", "#product-count", function(e){
+  $(document).on("click", "#product-count", function(){
     var $this = $(this);
     $this.button('loading')
   });
