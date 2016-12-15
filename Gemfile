@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 # PUBLIC GEMS
+gem "font-awesome-rails"
 gem 'httpclient'
 gem 'mongoid'
 gem 'mongoid-paranoia', '~> 2.0' # For deleting and restoring records
