@@ -1,15 +1,10 @@
 source 'https://rubygems.org'
 
-# SEARCH
-gem 'sunspot_solr', :group => :development
-
-gem 'sunspot_rails'
-gem 'sunspot_mongoid'
-
 # PUBLIC GEMS
 gem 'httpclient'
 gem 'mongoid'
 gem 'mongoid-paranoia', '~> 2.0' # For deleting and restoring records
+gem 'mongoid_search', github: 'mauriciozaffari/mongoid_search', branch: 'master'
 gem 'will_paginate', '> 3.0'
 gem 'will_paginate_mongoid'
 
