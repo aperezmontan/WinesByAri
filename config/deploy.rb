@@ -20,9 +20,6 @@ set :stage, :production
 # These are the defaults.
 # set :format_options, command_output: true, log_file: "log/capistrano.log", color: :auto, truncate: :auto
 
-# Default value for :pty is false
-# set :pty, true
-
 # Default value for :linked_files is []
 append :linked_files, "config/secrets.yml"
 
@@ -34,7 +31,7 @@ append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/syst
 
 # Default value for keep_releases is 5
 # set :keep_releases, 5
-set :pty, false
+set :pty, true
 
 set :ssh_options, {
   forward_agent: true,
