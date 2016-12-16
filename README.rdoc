@@ -27,7 +27,7 @@ Generete 2 secret keys (one for development and one for test) using `bundle exec
 
   API_KEY: *WINE.COM API KEY*
 
-If mongo db not installed, install and start it.  If you're using a Mac, doing this is simple with homebrew
+If mongo db is not installed, install and start it.  If you're using a Mac, doing this is simple with homebrew
   brew install mongodb
 
 Once that's done, there are some instructions to start it up.  The command will be something like
