@@ -6,6 +6,7 @@ gem 'httpclient'
 gem 'mongoid'
 gem 'mongoid-paranoia', '~> 2.0' # For deleting and restoring records
 gem 'mongoid_search', github: 'mauriciozaffari/mongoid_search', branch: 'master'
+gem 'net-ssh', '~>3.2.0'
 gem 'will_paginate', '> 3.0'
 gem 'will_paginate_mongoid'
 
@@ -35,9 +36,6 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Unicorn as the app server
 # gem 'unicorn'
 
-# Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
-
 group :development, :test do
   gem 'database_cleaner' # Cleans of db after running tests
   gem 'pry'
@@ -46,7 +44,11 @@ group :development, :test do
 end
 
 group :development do
+# Use Capistrano for deployment
+  gem 'capistrano', :require => false
+  gem 'capistrano-rails', :require => false
+  gem 'capistrano-rvm', :require => false
+  gem 'capistrano-passenger', :require => false
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 end
-
