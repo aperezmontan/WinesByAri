@@ -1,4 +1,4 @@
-server '35.166.16.1', roles: [:web, :app, :db], primary: true
+server '35.166.16.1', port: 22, roles: [:web, :app, :db], primary: true
 
 set :repo_url,        'git@github.com:aperezmontan/WinesByAri.git'
 set :application,     'WinesByAri'
