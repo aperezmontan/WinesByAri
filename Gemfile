@@ -7,6 +7,7 @@ gem 'mongoid'
 gem 'mongoid-paranoia', '~> 2.0' # For deleting and restoring records
 gem 'mongoid_search', github: 'mauriciozaffari/mongoid_search', branch: 'master'
 gem 'net-ssh', '~>3.2.0'
+gem 'puma'
 gem 'will_paginate', '> 3.0'
 gem 'will_paginate_mongoid'
 
@@ -48,7 +49,7 @@ group :development do
   gem 'capistrano', :require => false
   gem 'capistrano-rails', :require => false
   gem 'capistrano-rvm', :require => false
-  gem 'capistrano-passenger', :require => false
+  gem 'capistrano3-puma', :require => false
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 end
