@@ -50,6 +50,7 @@ group :development do
   gem 'capistrano-rails', :require => false
   gem 'capistrano-rvm', :require => false
   gem 'capistrano3-puma', :require => false
+  gem 'capistrano-secrets-yml', '~> 1.0.0'
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
 end
